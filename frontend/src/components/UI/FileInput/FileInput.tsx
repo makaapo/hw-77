@@ -32,7 +32,14 @@ const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
       <input type="file" name={name} style={{ display: 'none' }} ref={inputRef} onChange={onFileChange} />
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
-          <TextField label={label} InputProps={{ readOnly: true }} value={filename} onClick={activateInput} />
+          <TextField
+            sx={{
+              width: '100%',
+            }}
+            label={label}
+            InputProps={{ readOnly: true }}
+            value={filename}
+            onClick={activateInput} />
         </Grid>
         <Grid item>
           <Button variant="outlined" onClick={activateInput}>

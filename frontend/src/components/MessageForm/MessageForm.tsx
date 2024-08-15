@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import {Button, Grid, TextField} from '@mui/material';
+import {Button, CircularProgress, Grid, TextField} from '@mui/material';
 import {MessageMutation} from '../../types.ts';
 import FileInput from '../UI/FileInput/FileInput.tsx';
+import {useAppSelector} from '../../app/hooks.ts';
+import {selectMessageCreating} from '../../features/messageSlice.ts';
 
 
 interface Props {
   onSubmit: (message: MessageMutation) => void;
 }
 
-const MessageForm: React.FC<Props> = ({ onSubmit}) => {
+const MessageForm: React.FC<Props> = ({onSubmit}) => {
+  const isCreating = useAppSelector(selectMessageCreating);
   const [state, setState] = useState<MessageMutation>({
     author: '',
     message: '',
@@ -18,6 +21,7 @@ const MessageForm: React.FC<Props> = ({ onSubmit}) => {
   const submitFormHandler = (event: React.FormEvent) => {
     event.preventDefault();
     onSubmit({ ...state });
+
   };
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,10 +75,11 @@ const MessageForm: React.FC<Props> = ({ onSubmit}) => {
       </Grid>
       <Grid item>
         <Button
-          disabled={state.message.trim().length === 0}
+          disabled={state.message.trim().length === 0 || isCreating}
           variant="contained"
-          type="submit"
-        >Send</Button>
+          type="submit">
+          {isCreating ? <CircularProgress size={24}/> : 'Send'}
+        </Button>
       </Grid>
     </Grid>
   );

@@ -1,27 +1,23 @@
-import MessageForm from '../../components/MessageForm/MessageForm.tsx';
-import {Box, Typography} from '@mui/material';
+import {Button, Grid, Typography} from '@mui/material';
+import {Link} from 'react-router-dom';
 
 const Home = () => {
+
   return (
     <>
-      <Box sx={{
-        width: 300,
-        minWidth: '200px',
-        padding: 2,
-        borderRight: '1px solid #ddd',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
-        position: 'relative',
-        backgroundColor: '#f9f9f9',
-        borderRadius: 2,
-        boxShadow: 1
-      }}>
-        <Typography variant="h4" sx={{ mb: 2, textAlign: 'center' }}>
-          New message
-        </Typography>
-        <MessageForm />
-      </Box>
+      <Grid container direction="column" spacing={2}>
+        <Grid item container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography variant="h4">Messages</Typography>
+          </Grid>
+          <Grid item>
+            <Button color="primary" component={Link} to="/messages/new">
+              Add message
+            </Button>
+          </Grid>
+        </Grid>
+
+      </Grid>
     </>
   );
 };
